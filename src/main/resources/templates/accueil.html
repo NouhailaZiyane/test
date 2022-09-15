@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org"  lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script type="text/javascript"
+            src="https://www.gstatic.com/charts/loader.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+    <link rel="icon" type="image/png" sizes="16x16" href="image.png">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link href="css/bootstrap.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <title>Accueil</title>
+    <link rel="stylesheet/less" type="text/css" href="styles.less" />
+    <script src="less.js" type="text/javascript"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
+<style>
+    .card-counter{
+        box-shadow: 2px 2px 10px #DADADA;
+        margin: 5px;
+        padding: 20px 10px;
+        background-color: #fff;
+        height: 100px;
+        border-radius: 5px;
+        transition: .3s linear all;
+
+    }
+
+    .card-counter:hover{
+        box-shadow: 4px 4px 20px #DADADA;
+        transition: .3s linear all;
+    }
+
+    .card-counter.primary{
+        background-color: #007bff;
+        color: #FFF;
+    }
+
+    .card-counter.danger{
+        background-color: #ef5350;
+        color: #FFF;
+    }
+
+    .card-counter.success{
+        background-color: #66bb6a;
+        color: #FFF;
+    }
+
+    .card-counter.info{
+        background-color: #26c6da;
+        color: #FFF;
+    }
+
+    .card-counter i{
+        font-size: 5em;
+        opacity: 0.2;
+    }
+
+    .card-counter .count-numbers{
+        position: absolute;
+        right: 35px;
+        top: 20px;
+        font-size: 32px;
+        display: block;
+    }
+
+    .card-counter .count-name{
+        position: absolute;
+        right: 35px;
+        top: 65px;
+        font-style: italic;
+        text-transform: capitalize;
+        opacity: 0.5;
+        display: block;
+        font-size: 18px;
+    }
+</style>
+</head>
+<body>
+<div class="container" th:if="${session.username}">
+    <nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd;">
+        <div class="container-fluid" >
+            <a class="navbar-brand" th:href="@{/accueil}" ><font size="+3"><strong>N-Stock</strong></font></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" th:href="@{/articles}"><font size="+1.5">Articles</font></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/familles}"><font size="+1.5">Familles d'articles</font></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/clients}"><font size="+1.5">Clients</font></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/fournis}"><font size="+1.5">Fournisseurs</font></a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <font size="+1.5">  Gestion</font>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="#">Achat</a></li>
+                            <li><a class="dropdown-item" href="#">Vente</a></li>
+                            <li><a class="dropdown-item" href="#">Factures</a></li>
+
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <form th:action="@{/articles/search}" method="post">
+                            <input type="search" name="search" class="form-control" placeholder="Rechercher un article">
+
+
+                    </li>
+                    <li class="nav-item">&nbsp;
+                        <button type="submit" class="btn btn-success">Rechercher</button>
+
+                    </li>
+                    </form>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <br><br>
+    <h5 th:text="'Bienvenue ' +${session.username}"></h5>
+    <a href="/logout" class="btn btn-danger">Se Déconnecter</a>
+    <h2 align="center">Dashboard</h2>
+<br><br>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card-counter primary">
+                <i class="fa fa-code-fork"></i>
+
+                <span class="count-numbers" th:text="${countStock}"></span>
+                <span class="count-name">Stock</span>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card-counter danger">
+                <i class="fa fa-ticket"></i>
+                <span class="count-numbers" th:text="${count}" ></span>
+                <span class="count-name">Articles</span>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card-counter success">
+                <i class="fa fa-database"></i>
+                <span class="count-numbers">6875</span>
+                <span class="count-name">Fournisseurs</span>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card-counter info">
+                <i class="fa fa-users"></i>
+                <span class="count-numbers">35</span>
+                <span class="count-name">Clients</span>
+            </div>
+        </div>
+    </div>
+    <br><br>
+    <div class="row">
+        <div class="col-6">
+            <div id="piechart" style="width: 550px; height: 400px; margin: 0 auto" ></div>
+        </div>
+
+
+        <div class="col-6">
+    <div id="container"
+         style="width: 550px; height: 400px; margin: 0 auto"></div>
+        </div>
+    </div>
+</div>
+<script
+        src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script th:inline="javascript">
+
+    $(function(){
+        Highcharts.chart('container', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Articles par familles'
+            },
+            subtitle: {
+                text: 'Details'
+            },
+            xAxis: {
+                categories: [[${keySet}]],
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                max:10,
+                title: {
+                    text: 'Nombre des Articles'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f} K</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [{
+                name: "Articles",
+                data: [[${values}]]
+            }]
+        });
+    });
+
+    var real_data = [[${names}]];
+    $(document).ready(function() {
+        google.charts.load('current', {
+            packages : [ 'corechart', 'bar' ]
+        });
+       // google.charts.setOnLoadCallback(drawColumnChart);
+        google.charts.setOnLoadCallback(drawPieChart);
+    });
+
+    function drawPieChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Year');
+        data.addColumn('number', 'Views');
+        Object.keys(real_data).forEach(function(key) {
+            data.addRow([ key, real_data[key] ]);
+        });
+        var options = {
+            title : 'Pourcentage des articles stockés'
+        };
+        var chart = new google.visualization.PieChart(document
+            .getElementById('piechart'));
+        chart.draw(data, options);
+    }
+</script>
+
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script> </div></body>
+
+</div>
+<div class="container" th:unless="${session.username}">
+    <h1 style="text-align: center; color: red">Vous devez se connecter d'abord</h1>
+    <a href="/login" class="btn btn-danger">Se Connecter</a>
+</div>
+</body>
+
+</html>

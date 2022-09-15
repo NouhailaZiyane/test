@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org"  lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+    <link rel="icon" type="image/png" sizes="16x16" href="image.png">
+
+    <title>Controle de qualité</title>
+</head>
+<body>
+<div class="container">
+    <nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd;">
+        <div class="container-fluid" >
+            <a class="navbar-brand" th:href="@{/accueil}" ><font size="+3"><strong>N-Stock</strong></font></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" th:href="@{/articles}"><font size="+1.5">Articles</font></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/familles}"><font size="+1.5">Familles d'articles</font></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/clients}"><font size="+1.5">Clients</font></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/fournis}"><font size="+1.5">Fournisseurs</font></a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <font size="+1.5">  Gestion</font>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="#">Achat</a></li>
+                            <li><a class="dropdown-item" href="#">Vente</a></li>
+                            <li><a class="dropdown-item" href="#">Factures</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <form th:action="@{/articles/search}" method="post">
+                            <input type="search" name="search" class="form-control" placeholder="Rechercher un article">
+
+
+                    </li>
+                    <li class="nav-item">&nbsp;
+                        <button type="submit" class="btn btn-success">Rechercher</button>
+
+                    </li>
+                    </form>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <br><br>
+
+
+    <!-- The sidebar -->
+    <!--  <div class="sidebar">
+         <a class="active" th:href="@{/articles}">Liste des articles</a>
+         <a th:href="@{/newForm}">Nouveau article</a>
+       <a href="#contact">Contact</a>
+         <a href="#about">About</a>--->
+    <!-- </div>--->
+
+    <!-- Page content -->
+    <div class="content" th:if="${session.username}">
+        <br><br>
+
+        <h5 th:text="'Bienvenue ' +${session.username}"></h5>
+        <a href="/logout" class="btn btn-danger">Se Déconnecter</a><br><br>
+        <h2 align="center">
+            Ajouter la qualité du produit
+        </h2><br><br>
+        <div class="col-6" th:text="${error}"></div>
+
+        <form  th:unless="${error}" th:action="@{/saveQ}" th:object="${q}" method="post">
+            <div class="row">
+                <div class="col-2">
+                    <input type="text"  class="form-control" id="id" th:field="*{id}" hidden>
+                    <input type="text"  class="form-control" id="idd"  th:field="*{a}" hidden>
+                </div>
+                <div class="col-3">
+                    <label for="unite" class="form-label">Qualité</label>
+                    <select class="form-select"  id="unite" aria-label="Default select example" th:field="*{qualite}" required>
+                        <option value="Bonne" selected >Bonne</option>
+                        <option value="Moyenne">Moyenne</option>
+                        <option value="Mauvaise">Mauvaise</option>
+
+                    </select>
+                </div>
+                <div class="col-3">
+                    <label for="designation" class="form-label">Note</label>
+                    <textarea  th:field="*{note}"  class="form-control" id="designation" rows="5" cols="70" required> </textarea>
+
+
+                </div>
+
+                <div class="col-2"></div>
+
+            </div>
+            <br><br>
+            <div class="row">
+                <div class="col-4">
+
+                </div>
+                <div class="col-6">
+                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+
+                </div>
+            </div>
+
+    </div>
+
+</div>
+<div class="container" th:unless="${session.username}">
+    <h1 style="text-align: center; color: red">Vous devez se connecter d'abord</h1>
+    <a href="/login" class="btn btn-danger">Se Connecter</a>
+</div>
+</body>
+</html>

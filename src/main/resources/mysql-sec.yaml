@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Secret
+data:
+  root-password: Tm91aGEyMDAxQA==
+  database-name: c3RvY2sK
+metadata:
+  name: mysql-secret
